@@ -1,0 +1,21 @@
+
+z	java:S135"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆÿÿÿÿÿ8—Š›Àë1
+7
+java:S1220""Move this file to a named package.8˜Š›Àë1
+o
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(œû¿Ø8¨Š›Àë1
+G	java:S106-"+Replace this use of System.out by a logger.(»µ¿½8ªŠ›Àë1
+G	java:S106."+Replace this use of System.out by a logger.(Ç‚–€8ªŠ›Àë1
+L	java:S1064"+Replace this use of System.out by a logger.(„¦Ü´úÿÿÿÿ8ªŠ›Àë1
+G	java:S106:"+Replace this use of System.out by a logger.(³Ê¼Ê8«Š›Àë1
+G	java:S106D"+Replace this use of System.out by a logger.(œöÑ®8«Š›Àë1
+G	java:S106I"+Replace this use of System.out by a logger.(»Ù‚Ì8­Š›Àë1
+G	java:S106K"+Replace this use of System.out by a logger.(ô¦–»8­Š›Àë1
+G	java:S106O"+Replace this use of System.out by a logger.( “Ê8­Š›Àë1
+F	java:S106Y"+Replace this use of System.out by a logger.(Ó£ºT8­Š›Àë1
+G	java:S106Z"+Replace this use of System.out by a logger.(ÆÀûı8À—Àë1
+T
+java:S6126["2Replace this String concatenation with Text block.(î¢¯Èùÿÿÿÿ8­Š›Àë1
+G	java:S106a"+Replace this use of System.out by a logger.(ô¦–»8çæ¡Àë1
+L	java:S106k"+Replace this use of System.out by a logger.(Ùİ–±úÿÿÿÿ8üšÔÃë1
+F	java:S106o"+Replace this use of System.out by a logger.(Ñ” 8üšÔÃë1

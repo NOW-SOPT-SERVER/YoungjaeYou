@@ -1,0 +1,11 @@
+
+m
+java:S1104"PMake flag a static final constant or non-public and provide accessors if needed.(Õ¶©Ò8£¿ŽÆë1
+k
+java:S1104"NMake br a static final constant or non-public and provide accessors if needed.(ßñÍå8£¿ŽÆë1
+7
+java:S1220""Move this file to a named package.8£¿ŽÆë1
+F	java:S106"+Replace this use of System.out by a logger.(›°œ`8©¿ŽÆë1
+L	java:S106"+Replace this use of System.out by a logger.(þû©Ïúÿÿÿÿ8ª¿ŽÆë1
+L	java:S106"+Replace this use of System.out by a logger.(”ñ€Ðÿÿÿÿÿ8ª¿ŽÆë1
+G	java:S106"+Replace this use of System.out by a logger.(ô¦–»8ª¿ŽÆë1
