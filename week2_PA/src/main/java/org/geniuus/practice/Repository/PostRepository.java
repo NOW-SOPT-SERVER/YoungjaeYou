@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificationExecutor<Post> {
     List<Post> findAll(Specification<Post> spec);
-//    List<Post> findByBlogId(Long blogId);
 
     // 내 블로그이거나, 다른 사람 블로그면 visibility가 true 인것만 검색 (전체 공개)
     static Specification<Post> findVisiblePostsById(Long blogId) {
