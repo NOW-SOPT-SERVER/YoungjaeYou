@@ -42,7 +42,7 @@ public class Post extends BaseTimeEntity {
         return Post.builder()
                 .blog(blog)
                 .title(postCreateRequest.title())
-                .content(postCreateRequest.contents())
+                .content(postCreateRequest.content())
                 .visibility(postCreateRequest.visibility() == null ? true : postCreateRequest.visibility())
                 .build();
     }

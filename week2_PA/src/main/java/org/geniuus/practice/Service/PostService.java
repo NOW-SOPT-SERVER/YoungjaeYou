@@ -22,9 +22,10 @@ public class PostService {
 
     public String create(Long memberId, Long blogId, PostCreateRequest postCreateRequest) {
         // 블로그의 주인이 맞는지 권한 검사
-        if (!isOwner(memberId, blogId)) throw new ForbiddenException(ErrorMessage.BLOG_FORBIDDEN_BY_MEMBER_EXCEPTION);
-
         Blog blog = blogService.findBlogByMemberId(memberId);
+
+        if (!isOwner(blogId, blog.getId())) throw new ForbiddenException(ErrorMessage.BLOG_FORBIDDEN_BY_MEMBER_EXCEPTION);
+
         Post post = postRepository.save(Post.create(blog, postCreateRequest));
         return post.getId().toString();
     }

@@ -3,7 +3,6 @@ package org.geniuus.practice.Service.dto;
 import org.geniuus.practice.domain.Post;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public record PostsFindResponse(
         String title,
