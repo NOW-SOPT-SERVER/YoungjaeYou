@@ -33,7 +33,7 @@ public class PostController {
     }
     // 전체 공개인 포스팅만 모두 조회 + 내 건 비공개여도 조회 가능
     @GetMapping("/post")
-    public ResponseEntity<SuccessStatusResponse<List<PostsFindResponse>>> retrievePost(
+    public ResponseEntity<SuccessStatusResponse<List<PostsFindResponse>>> findPost(
             @RequestHeader Long memberId
     ) {
         return ResponseEntity.status(HttpStatus.OK)
