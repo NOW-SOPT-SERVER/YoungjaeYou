@@ -2,6 +2,8 @@ package org.geniuus.practice.Service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.geniuus.practice.Common.dto.ErrorMessage;
+import org.geniuus.practice.Common.NotFoundException;
 import org.geniuus.practice.Repository.MemberRepository;
 import org.geniuus.practice.Service.dto.MemberCreateDto;
 import org.geniuus.practice.Service.dto.MemberFindDto;
@@ -43,5 +45,11 @@ public class MemberService {
     ) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new EntityNotFoundException("ID에 해당하는 사용자가 존재하지 않습니다."));
         memberRepository.delete(member);
+    }
+
+    public Member findById(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(
+                () -> new NotFoundException(ErrorMessage.MEMBER_NOT_FOUND_BY_ID_EXCEPTION)
+        );
     }
 }
