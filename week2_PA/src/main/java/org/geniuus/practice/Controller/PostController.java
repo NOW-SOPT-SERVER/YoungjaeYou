@@ -39,4 +39,6 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(SuccessStatusResponse.of(SuccessMessage.POST_FIND_SUCCESS, postService.findMultiplePosts(memberId)));
     }
+
+
 }
