@@ -2,13 +2,17 @@ package org.geniuus.practice.Service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.geniuus.practice.Common.UnauthorizedException;
 import org.geniuus.practice.Common.dto.ErrorMessage;
 import org.geniuus.practice.Common.NotFoundException;
+import org.geniuus.practice.Common.jwt.JwtTokenProvider;
 import org.geniuus.practice.Repository.MemberRepository;
-import org.geniuus.practice.Service.dto.MemberCreateDto;
-import org.geniuus.practice.Service.dto.MemberFindDto;
-import org.geniuus.practice.Service.dto.MembersDto;
+import org.geniuus.practice.Service.dto.*;
+import org.geniuus.practice.auth.UserAuthentication;
+import org.geniuus.practice.auth.redis.service.TokenService;
 import org.geniuus.practice.domain.Member;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,14 +23,43 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final TokenService tokenService;
+
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public String createMember(
-            MemberCreateDto memberCreateDto
-    ) {
-        Member member = Member.create(memberCreateDto.name(), memberCreateDto.part(), memberCreateDto.age());
-        memberRepository.save(member);
-        return member.getId().toString();
+    public MemberResponseWithTokens createMember (MemberCreateRequest memberCreateRequest) {
+        Member member = memberRepository.save(
+                Member.create(
+                        memberCreateRequest.name(),
+                        passwordEncoder.encode(memberCreateRequest.password()),
+                        memberCreateRequest.part(),
+                        memberCreateRequest.age())
+        );
+
+        String accessToken = jwtTokenProvider.issueAccessToken(
+                UserAuthentication.createUserAuthentication(member.getId()));
+        String refreshToken = jwtTokenProvider.issueRefreshToken(
+                UserAuthentication.createUserAuthentication(member.getId()));
+
+        tokenService.saveRefreshToken(member.getId(), refreshToken);
+        return MemberResponseWithTokens.of(accessToken, refreshToken, member.getId());
+    }
+
+    public MemberResponseWithTokens login(MemberLoginRequest memberLoginRequest) {
+        Member member = memberRepository.findById(memberLoginRequest.memberId()).orElseThrow(
+                () -> new NotFoundException(ErrorMessage.MEMBER_NOT_FOUND_BY_ID_EXCEPTION)
+        );
+        registerMember(memberLoginRequest.password(), member);
+
+        String accessToken = jwtTokenProvider.issueAccessToken(
+                UserAuthentication.createUserAuthentication(memberLoginRequest.memberId()));
+        String refreshToken = jwtTokenProvider.issueRefreshToken(
+                UserAuthentication.createUserAuthentication(memberLoginRequest.memberId()));
+        tokenService.saveRefreshToken(member.getId(), refreshToken);
+        return MemberResponseWithTokens.of(accessToken, refreshToken, memberLoginRequest.memberId());
     }
 
     public MemberFindDto findMemberById(Long memberId) {
@@ -52,4 +85,10 @@ public class MemberService {
                 () -> new NotFoundException(ErrorMessage.MEMBER_NOT_FOUND_BY_ID_EXCEPTION)
         );
     }
+
+    public void registerMember (String requestPassword, Member member) {
+        if (!passwordEncoder.matches(requestPassword, member.getPassword()))
+            throw new UnauthorizedException(ErrorMessage.PASSWORD_NOT_MATCHED_EXCEPTION);
+    }
+
 }

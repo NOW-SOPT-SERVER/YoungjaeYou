@@ -1,8 +1,6 @@
 package org.geniuus.practice.Common;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.geniuus.practice.Common.dto.ErrorResponse;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,5 +25,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ForbiddenException.class)
     protected ResponseEntity<ErrorResponse> handleForbiddenException(ForbiddenException e) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ErrorResponse.of(e.errorMessage));
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    protected ResponseEntity<ErrorResponse> handlerUnauthorizedException(UnauthorizedException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(ErrorResponse.of(e.getErrorMessage().getStatus(), e.getErrorMessage().getMessage()));
     }
 }

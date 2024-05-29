@@ -1,7 +1,9 @@
 package org.geniuus.practice.Common;
 
+import lombok.Getter;
 import org.geniuus.practice.Common.dto.ErrorMessage;
 
+@Getter
 public class BusinessException extends RuntimeException {
     public ErrorMessage errorMessage;
 

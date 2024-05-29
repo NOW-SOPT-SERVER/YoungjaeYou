@@ -4,7 +4,7 @@ import io.restassured.RestAssured;
 import org.assertj.core.api.Assertions;
 import org.geniuus.practice.Repository.MemberRepository;
 import org.geniuus.practice.Service.MemberService;
-import org.geniuus.practice.Service.dto.MemberCreateDto;
+import org.geniuus.practice.Service.dto.MemberCreateRequest;
 import org.geniuus.practice.Settings.ApiTest;
 import org.geniuus.practice.domain.Part;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +30,7 @@ public class MemberControllerTest extends ApiTest {
         @DisplayName("요청 성공 테스트")
         public void createMemberSuccess() throws Exception {
             // given
-            final var request = new MemberCreateDto(
+            final var request = new MemberCreateRequest(
                     "geniuus",
                     Part.SERVER,
                     26
