@@ -58,7 +58,7 @@ public class MemberService {
                 UserAuthentication.createUserAuthentication(memberLoginRequest.memberId()));
         String refreshToken = jwtTokenProvider.issueRefreshToken(
                 UserAuthentication.createUserAuthentication(memberLoginRequest.memberId()));
-
+        tokenService.saveRefreshToken(member.getId(), refreshToken);
         return MemberResponseWithTokens.of(accessToken, refreshToken, memberLoginRequest.memberId());
     }
 
